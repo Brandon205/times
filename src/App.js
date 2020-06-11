@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import {
   BrowserRouter as Router,
-  Route, 
-  Link 
+  Route 
 } from 'react-router-dom';
 import Create from './Create';
 import './App.css';
@@ -49,7 +48,7 @@ function Stopwatch() {
 
   function msToTime(s) {
 
-    // Show to 2 or 3 digits, default is 2
+    // Show to 2 or 3 digits, default of 2
     function digits(n, z) {
       z = z || 2;
       return ('00' + n).slice(-z);
