@@ -7,7 +7,7 @@ import {
 import Create from './Create';
 import './App.css';
 
-// let exampleObj = {
+// let exampleObj = { // What needs to be created & stored in LS 
 //   "SMO Any%": {
 //     "splits": [
 //       {"Cap": 181000},
@@ -19,11 +19,8 @@ import './App.css';
 export default function App() {
   return (
     <Router>
-      <div className="App">
-        <h1>Stopwatch</h1>
-        <Stopwatch status={false} runningTime={0} />
-      </div>
       <Route exact path="/create" component={Create} />
+      <Route exact path="/timer" render={ () => <Stopwatch status={false} runningTime={0} /> } />
     </Router>
   )
 }
@@ -48,7 +45,6 @@ function Stopwatch() {
       clearInterval(timer);
       setStatus(false);
     }
-    return status;
   };
 
   function msToTime(s) {
@@ -70,8 +66,9 @@ function Stopwatch() {
   }
   
   return (
-    <div>
-      <p>{msToTime(runningTime)}</p>
+    <div className="App">
+      <h1>Stopwatch: </h1>
+      <h3>{msToTime(runningTime)}</h3>
       <button onClick={() => handleClick()}>{status ? 'Stop' : 'Start'}</button>
       <button onClick={() => handleReset()}>Reset</button>
     </div>
