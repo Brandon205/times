@@ -1,4 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+import {
+  BrowserRouter as Router,
+  Route, 
+  Link 
+} from 'react-router-dom';
+import Create from './Create';
 import './App.css';
 
 // let exampleObj = {
@@ -12,10 +18,13 @@ import './App.css';
 
 export default function App() {
   return (
-    <div className="App">
-      <h1>Stopwatch</h1>
-      <Stopwatch status={false} runningTime={0} />
-    </div>
+    <Router>
+      <div className="App">
+        <h1>Stopwatch</h1>
+        <Stopwatch status={false} runningTime={0} />
+      </div>
+      <Route exact path="/create" component={Create} />
+    </Router>
   )
 }
 
