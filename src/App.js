@@ -6,15 +6,6 @@ import {
 import Create from './Create';
 import './App.css';
 
-// let exampleObj = { // What needs to be created & stored in LS 
-//   "SMO Any%": {
-//     "splits": [
-//       {"Cap": 181000},
-//       {"Cascade": 360123}
-//     ]
-//   }
-// }
-
 export default function App() {
   return (
     <Router>

@@ -1,14 +1,25 @@
 import React, { useState } from 'react';
 
+// let exampleObj = { // What needs to be created & stored in LS
+//   "SMO Any%": {
+//     "splits": [
+//       {"Cap": 181000},
+//       {"Cascade": 360123}
+//     ]
+//   }
+// }
+
 export default function Create() {
     const [splits, setSplits] = useState([1]);
     const [runName, setRunName] = useState('');
 
-    let handleCreate = () => {
-        console.log('Saving...')
+    let handleCreate = (e) => {
+        e.preventDefault()
+        console.log(e)
     }
 
-    let addSplit = (remove) => {
+    let addSplit = (e, remove=1) => {
+        e.preventDefault();
         if (remove === -1 && splits.length > 1) {
             let splitsCopy = [...splits]
             splitsCopy.pop();
@@ -34,10 +45,10 @@ export default function Create() {
             <h2>Splits:</h2>
             <form>
                 {splitInputs}
+            <button onClick={(e) => handleCreate(e)}>Create!</button>
             </form>
-            <button onClick={() => addSplit()}>Add Split</button>
-            <button onClick={() => addSplit(-1)}>Remove Last Split</button>
-            <button onClick={() => handleCreate()}>Create!</button>
+            <button onClick={(e) => addSplit(e)}>Add Split</button>
+            <button onClick={(e) => addSplit(e, -1)}>Remove Last Split</button>
         </div>
     );
 }
