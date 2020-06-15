@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-// let exampleObj = { // What needs to be created & stored in LS
+// let exampleObj = { // TODO: change the storage to this value unless a better way for a ref time is found
 //   "SMO Any%": {
-//     "splits": [
+//     "SMO Any% splits": [
 //       {"Cap": 181000},
 //       {"Cascade": 360123}
 //     ]
@@ -17,16 +17,22 @@ export default function Create() {
     let handleCreate = (e) => {
         e.preventDefault();
         if (runName) {
-            let obj = { name: runName, splits: []};
+            let obj = { [runName]: runName, [runName + ' splits']: []};
             for (let i = 1; i <= splits.length; i++) {
                 let temp = [form.elements["split" + i][0].value, form.elements["split" + i][1].value, form.elements["split" + i][2].value];
-                obj.splits.push(temp);
-                let ls = localStorage.getItem('times')
-                if (JSON.parse(ls).name === runName) {
-                    console.log('You already have a run with that name');
+                obj[runName + ' splits'].push(temp);
+                let ls = localStorage.getItem('times');
+                if (ls) {
+                    ls = JSON.parse(ls);
+                    console.log(obj, 'obj')
+                    ls[runName] = runName;
+                    ls[runName + ' splits'] = obj[runName + ' splits'];
+                    console.log(ls, 'ls');
+                    localStorage.setItem('times', JSON.stringify(ls));
+                    console.log('Run Created!');
                 } else {
                     localStorage.setItem('times', JSON.stringify(obj));
-                    console.log('Run Created!');
+                    console.log('Run created');
                 }
             }
         } else {
