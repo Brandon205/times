@@ -16,13 +16,19 @@ export default function Create() {
 
     let handleCreate = (e) => {
         e.preventDefault();
-        if (runName !== "" || runName !== " ") {
+        if (runName) {
             let obj = { name: runName, splits: []};
             for (let i = 1; i <= splits.length; i++) {
                 let temp = [form.elements["split" + i][0].value, form.elements["split" + i][1].value, form.elements["split" + i][2].value];
                 obj.splits.push(temp);
+                let ls = localStorage.getItem('times')
+                if (JSON.parse(ls).name === runName) {
+                    console.log('You already have a run with that name');
+                } else {
+                    localStorage.setItem('times', JSON.stringify(obj));
+                    console.log('Run Created!');
+                }
             }
-            console.log(obj)
         } else {
             console.log("You need to have a name!");
         }
@@ -53,7 +59,8 @@ export default function Create() {
             <h1>Create a Run</h1>
             <input onChange={(e) => {setRunName(e.target.value)}} type="text" name="run-name" id="run-name" placeholder="Run Name (SMO: Any%)" value={runName} required />
             <h2>Splits:</h2>
-            <form id="form">
+            <form id="form" autoComplete="off">
+                <input type="hidden" name="auto" autoComplete="false" />
                 {splitInputs}
             </form>
             <button onClick={(e) => handleCreate(e)}>Create!</button>
